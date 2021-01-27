@@ -7,22 +7,22 @@ class Point:
         self.x = x
         self.y = y
 
+    @property
+    def center(self):
+        return self
+
 
 class Line:
     def __init__(self, point_1, point_2):
         self.point_1 = point_1
         self.point_2 = point_2
 
-    @property
-    def center(self):
-        return Point(np.mean([self.point_1.x, self.point_2.x], np.mean([self.point_1.y, self.point_2.y])))
-
 
 class Triangle:
     def __init__(self, point_1, point_2, point_3):
         self.point_1 = point_1
         self.point_2 = point_2
-        self.point3 = point_3
+        self.point_3 = point_3
 
 
 class Rectangle:
@@ -35,6 +35,5 @@ class Rectangle:
 
 class Circle:
     def __init__(self, center, radius):
-        self.center = center
+        self.center = Point(center[0], center[1])
         self.radius = radius
-

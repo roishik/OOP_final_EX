@@ -8,10 +8,6 @@ class Point(Shape):
         self.x = x
         self.y = y
 
-    @property
-    def center(self):
-        return self
-
 
 class Line(Shape):
     def __init__(self, point_1, point_2):

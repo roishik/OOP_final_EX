@@ -1,6 +1,7 @@
 from basic_shapes import Point
 import numpy as np
 
+
 class Color():
     def __init__(self, red, green, blue):
         self.r, self.g, self.b = red, green, blue
@@ -15,10 +16,30 @@ class Shape():
         self.line_color = line_color
         self.fill_color = fill_color
 
-    def move(self, x_translation, y_translation):
+    def translate(self, x_translation, y_translation):
         for p in self.points:
             p.x += x_translation
             p.y += y_translation
+
+    def resize(self, scale):
+        for p in self.points:
+            new_x = scale * (p.x - self.center.x) + self.center.x
+            new_y = scale * (p.y - self.center.y) + self.center.y
+            p.x, p.y = new_x, new_y
+
+    def rotate(self, degrees, radians=False):
+        if radians:
+            rad = degrees
+        else:
+            rad = degrees * np.pi / 180
+        for p in self.points:
+            x_centered = p.x - self.center.x
+            y_centered = p.y - self.center.y
+            nex_x_centered = x_centered * np.cos(rad) - y_centered * np.sin(rad)
+            new_y_centered = y_centered * np.cos(rad) + x_centered * np.sin(rad)
+            new_x = nex_x_centered + self.center.x
+            new_y = new_y_centered + self.center.y
+            p.x, p.y = new_x, new_y
 
     @property
     def center(self):

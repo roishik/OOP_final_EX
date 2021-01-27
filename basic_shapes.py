@@ -4,9 +4,22 @@ import cv2 as cv
 
 
 class Point(Shape):
+    DEFAULT_POINT_SIZE = 5
+    DEFAULT_LINE_WIDTH = 5
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.radius = self.DEFAULT_POINT_SIZE
+
+    def draw(self, img):
+        drawing_params = {'canvas': img, 'center': self.as_tuple, 'radius': self.DEFAULT_POINT_SIZE}
+        cv.circle(*drawing_params.values(), self.fill_color.cv_color, -1)  # plot shape
+        cv.circle(*drawing_params.values(), self.line_color.cv_color, self.DEFAULT_LINE_WIDTH)  # plot line
+
+    @property
+    def as_tuple(self):
+        return self.x, self.y
 
 
 class Line(Shape):

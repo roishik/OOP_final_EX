@@ -27,9 +27,13 @@ class Shape():
 
     @property
     def points(self):
+        if isinstance(self, Point):
+            return self
         # get all points in shape
         points_list = []
         for att_name in (att_dict := self.__dict__):
             if isinstance(att_dict[att_name], Point):
                 points_list.append(att_dict[att_name])
+            if isinstance(att_dict[att_name], Shape): # recursive for shape with shapes
+                points_list.extend(att_dict[att_name].points)
         return points_list

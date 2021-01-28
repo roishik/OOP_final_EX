@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Color():
     def __init__(self, red, green, blue):
         self.r, self.g, self.b = red, green, blue
@@ -13,11 +16,14 @@ class Color():
 
 
 class Img:
-    def __init__(self, height, length, background_color=Color(0, 0, 0)):
+    def __init__(self, height, width, background_color=Color(0, 0, 0)):
         # default background color is black
         self.height = height
-        self.length = length
-        self.background_color = background_color
+        self.width = width
+        self.background_color = background_color.cv_color
 
-    def draw(self):
-        pass
+    @classmethod
+    def from_dict(cls, ranges_dictionary, *background_color):
+        width = int(np.ciel(abs(ranges_dictionary['x_range'][1] - ranges_dictionary['x_range'][0])))
+        height = int(np.ciel(abs(ranges_dictionary['y_range'][1] - ranges_dictionary['y_range'][0])))
+        return cls(height, width, *background_color)

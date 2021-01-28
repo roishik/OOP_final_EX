@@ -1,4 +1,4 @@
-from shape import *
+from shape import Shape
 import numpy as np
 import cv2 as cv
 
@@ -12,6 +12,7 @@ class Point(Shape):
         self.x = x
         self.y = y
         self.radius = self.DEFAULT_POINT_SIZE
+        self.shape_name = 'point'
 
     def draw(self, img):
         drawing_params = {'canvas': img,
@@ -29,6 +30,7 @@ class Line(Shape):
     def __init__(self, point_1, point_2):
         self.point_1 = point_1
         self.point_2 = point_2
+        self.shape_name = 'line'
 
     def draw(self, img):
         drawing_params = {'canvas': img,
@@ -42,6 +44,7 @@ class Triangle(Shape):
         self.point_1 = point_1
         self.point_2 = point_2
         self.point_3 = point_3
+        self.shape_name = 'triangle'
 
     def draw(self, img):
         Line(self.point_1, self.point_2).draw(img)
@@ -58,6 +61,7 @@ class Rectangle(Shape):
         self.bottom_right_point = bottom_right_point
         self.bottom_left_point = Point(top_left_point.x, bottom_right_point.y)
         self.top_right_point = Point(bottom_right_point.x, top_left_point.y)
+        self.shape_name = 'rectangle'
 
     def draw(self, img):
         drawing_params = {'canvas': img,
@@ -71,6 +75,7 @@ class Circle(Shape):
     def __init__(self, center, radius):
         self.center = Point(center[0], center[1])
         self.radius = radius
+        self.shape_name = 'circle'
 
     def draw(self, img):
         drawing_params = {'canvas': img,

@@ -1,14 +1,18 @@
-from basic_shapes import Point
 from image import *
 from utils import *
 import numpy as np
 
 
-class Shape():
+class Center:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class Shape:
     def __init__(self, line_color, fill_color):
         self.line_color = line_color
         self.fill_color = fill_color
-
 
     def translate(self, x_translation, y_translation):
         for p in self.points:
@@ -52,12 +56,12 @@ class Shape():
 
     @property
     def points(self):
-        if isinstance(self, Point):
+        if self.shape_name == 'point':
             return self
         # get all points in shape
         points_list = []
         for att_name in (att_dict := self.__dict__):
-            if isinstance(att_dict[att_name], Point):
+            if att_dict[att_name].shape_name == 'point':
                 points_list.append(att_dict[att_name])
             if isinstance(att_dict[att_name], Shape): # recursive for shape with shapes
                 points_list.extend(att_dict[att_name].points)
